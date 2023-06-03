@@ -7,32 +7,22 @@ package problem;
  * [9] -> [1,0]
  * [1,3,4] -> [1,3,5]
  * [9,9,9] -> [1,0,0,0]
+ * Time complexity: O(n).
+ * Space complexity: O(n).
  * Решение проверено на LeetCode.
  */
 public class PlusOne {
     public int[] plusOne(int[] digits) {
-        // сначала рассматриваем самый простой кейс: последняя цифра в массиве - не 9-ка.
-        int lastIndex = digits.length - 1;
-        if (digits[lastIndex] < 9) {
-            digits[lastIndex] += 1;
-            return digits;
-        }
-        // далее рассматриваем ситуацию, в которой последняя цифра - это 9-ка.
-        int i = lastIndex;
-        while (i >= 0 && digits[i] == 9) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if (digits[i] < 9) {
+                digits[i]++;
+                return digits;
+            }
             digits[i] = 0;
-            i--;
         }
-        if (i != -1) {
-            digits[i] += 1;
-            return digits;
-        }
-        // ниже рассматриваем случай, когда все значения в массиве были 9-ками.
-        int[] result = new int[digits.length + 1];
-        result[0] = 1;
-        for (int j = 1; j < result.length; j++) {
-            result[j] = digits[j - 1];
-        }
-        return result;
+        // ниже рассматриваем случай, когда все числа в изначальном массиве были 9-ками.
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
     }
 }
